@@ -1,0 +1,305 @@
+\chapter{Логически основи}
+
+
+\begin{itemize}
+\item
+  Език на съждителното смятане
+\item
+  Удовлетворимост на съждителна формула
+\item
+  Език на предикатно смятане
+\item
+  Определимост
+\item
+  Изпълнимост на предикатна формула
+\item
+  Тавтологии
+\item
+  Неизпълнимост на предикатна формула
+\end{itemize}
+
+\begin{itemize}
+\item
+  Големи букви - предикатни символи
+\item
+  Малки букви - функционални символи
+\item
+  Знаем арността на всеки предикатен и функционален символ.
+\item
+  константи - функционални символи с нулева арност.
+\end{itemize}
+
+\section{Определимост}
+
+\begin{example}
+  За езика $\L = \{P,Q\}$, където $\sharp P = 3$ и $\sharp Q = 3$,
+  да разгледаме структурата $\A = (\Nat, P^\A,Q^\A)$, където
+  $P^\A(a,b,c) \iff a+b = c$ и $Q^\A(a,b,c) \iff a\cdot b = c$.
+  Тогава
+  \begin{itemize}
+  \item
+    $y$ е четно
+  \item
+    $y$ е нечетно
+  \item
+    $a = 0 \iff a+b = b$. 
+    Тогава можем да дефинираме $\phi_0(x) \equiv (\exists y)[P(x,y,y)]$.
+    Това означава, че $\{0\} = \{a \in \Nat \mid \A \models \phi_0(a)\}$.
+  \item
+    Понеже $a = 1 \iff a \cdot b = b$, то
+    $\phi_1(x) \equiv (\forall y)[Q(x,y,y)]$.
+  \item
+    $b$ е наследник на $a$ точно тогава, когато $a+1 = b$.
+    Дефинираме
+    $\phi_{S}(x,y) \equiv (\exists z)[\phi_1(z) \land P(x,z,y)]$.
+  \item
+    Тогава
+    $\phi_{n+1}(x) \equiv (\exists z)[\phi_n(z) \land \phi_{S}(z,x)]$.
+  \item
+    $\phi_{\leq}(x,y) \equiv (\exists z)[P(x,z,y)]$.
+  \item
+    $\phi_{<}(x,y) \equiv (\exists z)[\neg \phi_0(z) \land P(x,z,y)]$.
+  \item
+    $\phi_{=}(x,y) \equiv \phi_{\leq}(x,y) \land \phi_{\leq}(y,x)$.
+  \item
+    $\phi_{\text{div}}(x,y) \equiv (\exists z)[Q(x,z,y)]$.
+  \item
+    $\phi_{\text{prime}}(x) \equiv (\exists z)[\phi_2(z) \land \phi_{\leq}(z,x) \land (\forall y)[\phi_{\text{div}}(y,x) \implies (\phi_1(y) \lor
+    \phi_{=}(y,x))]]$.
+    Тогава естественото число $a$ е просто точно тогава, когато $\A \models \phi_{\text{prime}}(a)$.
+  \end{itemize}
+\end{example}
+
+
+\begin{problem}
+  Да разгледаме езика $\L = \{P\}$, с $\sharp P = 3$, и структурата $\A = (\Nat, P^\A)$, където
+  \[P^\A(a,b,c) \iff a + b = c+2.\]
+  Докажете, че:
+  \begin{enumerate}
+  \item
+    всеки синглетон е определим;
+  \item
+    релациите равенство и строго по-малко са определими.
+  \end{enumerate}
+\end{problem}
+\begin{solution}
+  Искаме формули $\phi_n(x)$, такива че
+  \[\{k \in \Nat \mid \A \models \phi_n(k)\} = \{n\}.\]
+  \begin{align*}
+    a = 2 & \iff a + a = a + 2\\
+          & \iff \A \models P(a,a,a).
+  \end{align*}
+  Нека $\phi_2(x) \equiv P(x,x,x)$.
+  Сега имаме, че
+  \begin{align*}
+    a = b & \iff a + 2 = b + 2\\
+          & \iff \A \models (\exists x)[ \phi_2(x) \land P(a,x,b)].
+  \end{align*}
+  Нека $\phi_{=}(x,y) \equiv (\exists z)[ \phi_2(z) \land P(x,z,y)]$.
+  
+  Сега пък можем да определим елемента $0$.
+  Очевидно е, че
+  \[0 + 2 = 2 \lor 1 + 1 = 2 \lor 2+0 = 2.\]
+  Ние вече имаме определена двойката. Тогава
+  \[\phi_0(z) \equiv (\forall x)(\forall y)[ (\neg \phi_{=}(x,y) \land P(x,y,z)) \implies (\phi_2(x) \lor \phi_2(y))].\]
+  Сега вече лесно се съобразява, че
+  \[\phi_{1}(z) \equiv (\exists x)[\phi_0(x) \land P(z,z,x)].\]
+  Да дефинираме кога $y$ е наследник на $x$, т.е. 
+  $y = x + 1 \iff y + 1 = x + 2$.
+  \[\phi_{S}(x,y) \equiv (\exists z)[\phi_1(z) \land P(y,z,x)].\]
+  Тогава $\phi_{n+1}(x) \equiv (\exists z)[\phi_n(z) \land \phi_S(z,x)]$.
+  Също така, лесно се съобразява, че
+  \begin{align*}
+    a < b & \iff (\exists c)[c \geq 1\ \&\ a + c = b]\\
+          & \iff (\exists c)[ c \geq 3\ \&\ a + c = b + 2]\\
+          & \iff (\exists c)[ c \neq 0\ \&\ c \neq 1\ \&\ c \neq 2\ \&\ a + c = b + 2].
+  \end{align*}
+  Тогава
+  \[\phi_{<}(x,y) \equiv (\exists z)[\neg \phi_0(z) \land \neg \phi_1(z) \land \neg \phi_2(z) \land P(x,z,y)].\]
+\end{solution}
+
+\begin{problem}
+  Нека имаме език $\L = \{P\}$, с $\sharp P = 2$, и структура $\A$ за езика $\L$, където
+  универсумът на $\A$ е множество от квадратчета със страна $> 0$ и предикат $P^\A(x,y)$ е истина точно тогава, когато квадратчетата $x$ и $y$ имат обща точка.
+  Следните релации са определими:
+  \begin{enumerate}[1)]
+  \item
+    Включване;
+  \item
+    Равенство;
+  \item
+    Непразно сечение (може да не е квадрат);
+  \item
+    Обща стена;
+  \item
+    Само една обща точка;
+  \item
+    Сечение, което е квадрат;
+  \end{enumerate}
+\end{problem}
+\begin{solution}
+  \begin{enumerate}[1)]
+  \item
+    $\phi_{\subseteq}(x,y) \equiv (\forall z)[P(x,z) \implies P(y,z)]$;
+  \item
+    $\phi_{=}(x,y) \equiv \phi_{\subseteq}(x,y) \land \phi_{\subseteq}(y,x)$;
+  \item
+    $\phi_{\cap}(x,y) \equiv (\exists z)[\phi_{\subseteq}(z,x) \land \phi_{\subseteq}(z,y)]$;
+  \item
+    Има две различни квадратчета, които да се включват в $x$ и същевременно с това да имат общи елементи с $y$.
+    \begin{align*}
+      \phi_{\text{wall}}(x,y) \equiv &  P(x,y) \land \neg \phi_{\cap}(x,y) \land\\
+                                 & (\exists z_1)(\exists z_2)[\neg P(z_1,z_2) \land \phi_{\subseteq}(z_1,x) \land \phi_{\subseteq}(z_2,x) \land P(z_1,y)\land P(z_2,y)];
+    \end{align*}
+  \item
+    Няма две различни квадратчета, които да се включват в $x$ и същевременно с това да имат общи елементи с $y$.
+    \begin{align*}
+      \phi_{\text{point}}(x,y) \equiv &  P(x,y) \land\\
+                                      & (\forall z_1)(\forall z_2)[\neg P(z_1,z_2) \land \phi_{\subseteq}(z_1,x) \land \phi_{\subseteq}(z_2,x) \to \neg(P(z_1,y)\land P(z_2,y))];
+    \end{align*}
+  \item
+    Най-голямото сечение на $x$ и $y$ е квадрат.
+    \begin{align*}
+      \phi_{\text{square}}(x,y) \equiv & P(x,y) \land \\
+                                       & (\exists z_1)[\phi_{\subseteq}(z_1,x) \land \phi_{\subseteq}(z_1,y) \land (\forall z_2)[\phi_{\subseteq}(z_2,x) \land \phi_{\subseteq}(z_2,y) \to \phi_{\subseteq}(z_2,z_1)]].
+    \end{align*}
+  \end{enumerate}
+\end{solution}
+
+\begin{problem}
+  Нека имаме език $\L = \{P\}$, с $\sharp P = 2$, и структура $\A$ за езика $\L$, където
+  универсумът на $\A$ е множество от кръгове с радиус $> 0$ и предикат $P^\A(x,y)$ е истина точно тогава, когато кръгчето $x$ се съдържа в кръгчето $y$.
+  Следните релации са определими:
+  \begin{enumerate}[1)]
+  \item
+    Равенство;
+  \item
+    Непразно сечение;
+  \item
+    Празно сечение;
+  \item
+    Вътрешен допир;
+  \item
+    Външен допир;
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  Да разгледаме езика $\L = \{P\}$, с $\sharp P = 3$, и структурата $\A$ над езика $\L$ с универсум $\Sigma^\star$, $\Sigma \neq \emptyset$,
+  като $\A \models P(\alpha,\beta,\gamma) \iff \alpha \cdot \beta = \gamma$.
+  Да се докаже, че следните множества са определими в $\A$:
+  \begin{itemize}
+  \item
+    $\{\varepsilon\}$;
+  \item
+    $\{\omega \in \Sigma^\star \mid |\omega| = 1\}$;
+  \item
+    $\{\omega \in \Sigma^\star \mid |\omega| = 2\}$;
+  \item
+    $\{(\alpha,\beta) \mid \alpha \text{ е префикс на }\beta\}$;
+  \item
+    $\{(\alpha,\beta) \in (\Sigma^\star)^2 \mid \alpha = \beta\}$;
+  \item
+    $\{(\alpha,\beta) \mid \alpha \text{ е поддума на }\beta\}$;
+  \end{itemize}
+  Да се напише формула, която е вярна тогава и само тогава, когато азбуката $\Sigma$ е еднобуквена.
+  Да се докаже, че когато $\Sigma = \{a,b\}$ не е определимо $\{aa\}$.
+\end{problem}
+
+% \begin{problem}
+%   Нека $\A = (\{0,1\}^\star, =, \circ)$.
+%   Докажете, че следните релации са определими:
+%   \begin{itemize}
+%   \item
+%     $Len_n = \{\omega \mid |\omega| = n\}$;
+%   \item
+%     $EqLen = \{(\alpha,\beta) \mid |\alpha| = |\beta|\}$.
+%   \end{itemize}
+% \end{problem}
+
+
+\begin{problem}
+  Структурата $\A$ е с универсум множеството от всички отсечки в равнината и е за език без функционални символи и
+единствен предикатен символ p, който е двуместен и се интерпретира така:
+$\A \models P(t,s)$ точно тогава, когато отсечките $t$ и $s$ се пресичат.
+Забележка: Отсечките са с ненулева дължина и съдържат краищата си.
+Да се докаже, че са определими:
+\begin{itemize}
+\item
+  $I = \{(t, s) \mid \text{отсечката $t$ се съдържа в $s$}\}$;
+\item
+  $E = \{(t,s) \mid \text{отсечките $t$ и $s$ са равни}\}$;
+\item
+  $P = \{(t,s) \mid \text{отсечките $t$ и $s$ са успоредни}\}$;
+\item
+  $L = \{(t, s) \mid \text{един от краищата на отсечката $t$ лежи върху $s$}\}$.
+\item
+  $C = \{(t, s) \mid \text{отсечките $t$ и $s$ имат общ край}\}$;
+\end{itemize}
+Да се докаже, че $\{(t, s) \mid \text{отсечките $t$ и $s$ са с равна дължина}\}$ не е определимо.
+\end{problem}
+\begin{solution}
+  \begin{itemize}
+  \item
+    $t$ се съдържа в $s$ точно тогава, когато всяка отсечка, която сече $t$ сече и $s$;
+  \item
+    $t$ е равна на $s$ точно тогава, когато $t$ се съдържа в $s$ и $s$ се съдържа в $t$;
+  \item
+    $t$ и $s$ са успоредни тогава тогава, когато не съществуват техни разширения, които се секат;
+  \item
+    един от краищата на $t$ лежи върху $s$ тогава тогава, когато $t$ пресича $s$ и никоя
+    отсечка, която се съдържа в $t$ не пресича $s$;
+  \item
+    $t$ и $s$ имат общ край точно тогава, когато $(t,s) \in L$ и $(s,t) \in L$.
+  \end{itemize}
+  За автоморфизъм, нека $(x,y) -> (2x,y)$.
+\end{solution}
+
+
+
+\subsection{Неопределимост}
+
+Хомоморфизъм $h : \A \to \B$
+\begin{itemize}
+\item
+  $P^\A(a_1,\dots,a_n) \iff P^\B(h(a_1),\dots,h(a_n))$.
+\item
+  $h(c^\A) = c^\B$.
+\item
+  $h(f^\A(a_1,\dots,a_n)) = f^\B(h(a_1),\dots,h(a_n))$.
+\end{itemize}
+
+Какви са хомоморфизмите на структурата $\A = (\Nat, P, Q)$?
+
+\begin{theorem}
+  $h:\A\to\A$ е автоморфизъм. Нека $R$ е определимо множество в $\A$. Тогава
+  \[(a_1,\dots,a_n) \in R \iff (h(a_1),\dots,h(a_n)) \in R.\]
+\end{theorem}
+
+
+\begin{problem}
+  $\{1\}$ е неопределимо в структурата $\A = (\mathbb{Z},+)$.
+\end{problem}
+Разгледайте $h(n) = -n$.
+
+
+За структурата $\A = (\mathbb{Q}, \cdot)$.
+Разгледайте $h(\frac{x}{y}) = \frac{y}{x}$.
+
+Разгледайте
+$h(x) =
+\begin{cases}
+  0, & x = 0\\
+  \frac{1}{x}, & x \neq 0.
+\end{cases}$
+
+
+
+\section{Изпълнимост}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../lp"
+%%% End:

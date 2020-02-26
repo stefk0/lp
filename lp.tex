@@ -1,0 +1,178 @@
+\documentclass[a4paper, 12pt, oneside]{report}
+% \usepackage[mathjax,lwarpmk]{lwarp}
+
+% \usepackage[left=0.0cm, right=0.5cm]{geometry}
+% \special{papersize=9cm,12cm}
+
+\usepackage{cmap}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ИНДЕКСИ
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% работи само с memoir:
+%\xindyindex\makeindex\makeindex[names]
+
+%\usepackage{index}\makeindex%[program=truexindy,options=-M texindy -L bulgarian -C utf8]
+%\usepackage{makeidx}\makeindex%\makeatletter
+%\def\imki@progdefault{xindy} \makeatother
+%\renewcommand{\indexname}{New name}
+
+% вж. 'How to move from makeindex to xindy?.html'
+\usepackage[xindy]{imakeidx}
+\def\xindylangopt{-M lang/bulgarian/utf8-lang.xdy}
+\makeindex[options = \xindylangopt]
+% \makeindex[name=names, title = Именен указател, options = \xindylangopt]
+% \makeindex[name=proglangs, title = Изчислителни машини и програмни езици, options = \xindylangopt]
+% \makeindex[name=organisations, title = Организации и фирми, options = \xindylangopt]
+
+% \makeindex[options = \xindylangopt]
+\makeatletter
+\let\original@index\index
+\renewcommand{\index}[2][\imki@jobname]{%
+  \original@index[#1]{\detokenize{#2}}%
+}
+
+
+
+%%%%%%%%%%%%%
+%% MARGINS %%
+%%%%%%%%%%%%%
+
+% \reversemarginpar
+% \usepackage{marginnote}
+% \setlength{\marginparsep}{1cm}
+% \setlength{\oddsidemargin}{0.3cm}
+\setlength{\hoffset}{-0.5in}
+\setlength{\voffset}{-0.5in}
+% \setlength{\marginparwidth}{110pt}
+\setlength{\textwidth}{450pt}
+\setlength{\textheight}{670pt}
+
+% \setlength{\leftmargin}{0.2cm}
+
+\let\oldmarginpar\marginpar
+\renewcommand\marginpar[1]{\leavevmode\oldmarginpar{\raggedright\scriptsize #1}}
+% \renewcommand\marginpar[1]{}
+
+  
+% \renewcommand\marginpar[1]{\-\oldmarginpar[\raggedleft\scriptsize #1]%
+% {\raggedright\scriptsize #1}}
+%\renewcommand\marginpar[1]{\oldmarginpar{\scriptsize #1}}
+
+%%%%%%%%%%%%%%
+
+\usepackage[T2A]{fontenc}
+\usepackage[bulgarian]{babel}
+% \usepackage[OT2,T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage[pdfencoding=unicode, colorlinks=true, linkcolor=blue, pdfstartview=FitV, citecolor=green, urlcolor=blue]{hyperref}
+\usepackage{amssymb, amsmath, amsthm, mathrsfs, latexsym, bm, mathtools}
+\hypersetup{pdfauthor={Стефан Вътев},pdftitle={Езици, Автомати и Изчислимост},pdftex,unicode}
+
+\usepackage{epigraph}
+\usepackage{makeidx}
+\usepackage{layout, framed}
+\usepackage{qtree, bussproofs, algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{float}
+
+\usepackage{paralist}
+\usepackage[shortlabels]{enumitem}
+\setlist{leftmargin=*}
+
+% \usepackage{tikz, pgf}
+% \usetikzlibrary{arrows, automata, positioning, backgrounds, decorations.pathmorphing, decorations.markings}
+
+
+\usepackage{multicol}
+\usepackage{color}
+ 
+% \usepackage{comment}
+
+\setlength{\columnsep}{2pc}
+\setlength{\columnseprule}{.5pt}
+\def\columnseprulecolor{\color{gray}}
+
+
+\usepackage[font=small,format=plain,labelfont=bf,textfont=normal,justification=justified]{caption}
+\usepackage[justification=justified]{subcaption}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+
+% \usepackage{mybgdef}
+% \usepackage{mysymbols}
+% \usepackage{eai}
+
+\usepackage{pifont}
+\newcommand{\writedown}{\ding{45}\ }
+
+
+% \newcommand{\qstart}{q_{\texttt{start}}}
+% \newcommand{\qaccept}{q_{\texttt{accept}}}
+% \newcommand{\qreject}{q_{\texttt{reject}}}
+
+% \newcommand{\FA}{\langle{\Sigma,Q,\qstart,\delta,F}\rangle}
+% \newcommand{\FAn}[1]{\langle{\Sigma,Q_#1,s_#1,\delta_#1,F_#1}\rangle}
+% \newcommand{\NFA}{\langle{\Sigma,Q,\qstart,\Delta,F}\rangle}
+% \newcommand{\NFAn}[1]{\langle{\Sigma,Q_#1,s_#1,\Delta_#1,F_#1}\rangle}
+% \newcommand{\PDA}{\langle{Q,\Sigma,\Gamma,\sharp,\Delta,\qstart,\qaccept}\rangle}
+% \newcommand{\PDAn}[1]{\langle{Q_#1,\Sigma,\Gamma,\#,\s_#1,\Delta_#1,F_#1}\rangle}
+% \newcommand{\CFG}{\langle{V,\Sigma,R,S}\rangle}
+% \newcommand{\TM}{\langle{Q,\Sigma,\Gamma,\delta,\blank,\qstart,\qaccept, \qreject}\rangle}
+
+\newcommand{\Theorem}[1]{{\em Теорема~\ref{th:#1}}}
+\newcommand{\Lemma}[1]{{\em Лема~\ref{lem:#1}}}
+\newcommand{\Corollary}[1]{{\em Следствие~\ref{cor:#1}}}
+\newcommand{\Problem}[1]{{\em Задача~\ref{prob:#1}}}
+\newcommand{\Proposition}[1]{{\em Твърдение~\ref{pr:#1}}}
+\newcommand{\Example}[1]{{\em Пример~\ref{ex:#1}}}
+\newcommand{\Figure}[1]{{\em Фигура~\ref{fig:#1}}}
+\newcommand{\Property}[1]{{\em Свойство~(\ref{#1})}}
+
+\newif\ifhints
+\newif\ifcode                   % Използва се само за един пример на си++
+\hintstrue
+% \codetrue
+
+\usepackage[scaled=0.89]{PTSerif}
+\usepackage[scaled=0.89]{PTSans}
+
+\usepackage{mysymbols}
+\usepackage{mybgdef}
+% \setsecheadstyle{\large\usefont{T2A}{fag}{b}{r}} %\scshape
+% \setsubsecheadstyle{\bfseries\sffamily}
+
+% \renewcommand\familydefault{\sfdefault}
+
+\title{Записки по ,,Логическо програмиране''}
+\author{Стефан Вътев\thanks{Това е чернова. Възможни са неточности и грешки, а също и несъответсвия с терминологията въведена на лекции. За забележки и коментари: \href{mailto:stefanv@fmi.uni-sofia.bg}{stefanv@fmi.uni-sofia.bg}.
+    Конкретната версия на \LaTeX файловете, от които е компилиран този файл, може да бъде намерена  }}
+
+% \makeindex
+\begin{document} 
+\layout
+\maketitle
+
+
+% \include{front}
+
+\tableofcontents
+
+
+\include{logic/logic}
+\include{prolog/prolog}
+
+% \bibliographystyle{amsalpha}
+% \bibliography{lp}
+
+\printindex
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+
