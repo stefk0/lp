@@ -348,46 +348,150 @@
   
 \end{problem}
   
-\subsection{Неопределимост}
+\section{Неопределимост}
 
-Хомоморфизъм $h : \A \to \B$
+Автоморфизъм $h : \A \to \A$
 \begin{itemize}
 \item
-  $P^\A(a_1,\dots,a_n) \iff P^\B(h(a_1),\dots,h(a_n))$.
+  $h$ е биекция;
 \item
-  $h(c^\A) = c^\B$.
+  $P^\A(a_1,\dots,a_n) \iff P^\A(h(a_1),\dots,h(a_n))$;
 \item
-  $h(f^\A(a_1,\dots,a_n)) = f^\B(h(a_1),\dots,h(a_n))$.
+  $h(c^\A) = c^\A$;
+\item
+  $h(f^\A(a_1,\dots,a_n)) = f^\A(h(a_1),\dots,h(a_n))$.
 \end{itemize}
 
-Какви са хомоморфизмите на структурата $\A = (\Nat, P, Q)$?
-
 \begin{theorem}
-  $h:\A\to\A$ е автоморфизъм. Нека $R$ е определимо множество в $\A$. Тогава
-  \[(a_1,\dots,a_n) \in R \iff (h(a_1),\dots,h(a_n)) \in R.\]
+  $h:\A\to\A$ е автоморфизъм. Нека $\phi(\overline{x})$ е формула на езика на $\A$. Тогава
+  \[\A \models \phi(a_1,\dots,a_n) \iff \A \models \phi(h(a_1),\dots,h(a_n)).\]
 \end{theorem}
 
+\begin{problem}
+  Да разгледаме структурата $\A = (\mathbb{Z},+,=)$.
+  Докажете, че:
+  \begin{itemize}
+  \item 
+    $\{0\}$ е определимо.
+  \item
+    $\{n\}$ не е определимо, за $n \neq 0$.
+  \end{itemize}
+\end{problem}
+\begin{hint}
+  Разгледайте $h(n) = -n$.
+\end{hint}
 
 \begin{problem}
-  $\{1\}$ е неопределимо в структурата $\A = (\mathbb{Z},+)$.
+  Да разгледаме структурата $\A = (\mathbb{Q}, \cdot, =)$.
+  Докажете, че:
+  \begin{itemize}
+  \item
+    $\{0\}$, $\{1\}$ и $\{-1\}$ са определими;
+  \item
+    $\{q\}$ не е определимо за $q \neq 0,1,-1$;
+  \end{itemize}
 \end{problem}
-Разгледайте $h(n) = -n$.
+\begin{hint}
+  Разгледайте $h:\mathbb{Q} \to \mathbb{Q}$ като
+  $h(0) = 0$ и $h(x) = \frac{1}{x}$.  
+\end{hint}
 
+\begin{problem}
+  Да разгледаме структурата $\A = (\mathbb{N}, \cdot ,=)$.
+  Докажете, че:
+  \begin{itemize}
+  \item
+    $\{0\}$ и $\{1\}$ са определими;
+  \item
+    $\{n\}$ не е определимо за $n > 1$.
+  \end{itemize}
+\end{problem}
+\begin{hint}
+  Разгледайте
+  \[h(x) =
+    \begin{cases}
+      x, & \text{ ако }x = 0 \text{ или } x = 1\\
+      p^{\ell_1}_0p^{\ell_0}_1\cdots p^{\ell_k}_k, & \text{ ако }x = p^{\ell_0}_0 p^{\ell_1}_1 \cdots p^{\ell_k}_k
+    \end{cases}\]
 
-За структурата $\A = (\mathbb{Q}, \cdot)$.
-Разгледайте $h(\frac{x}{y}) = \frac{y}{x}$.
+  Ясно е, че $h$ е биекция. Защо $h$ е автоморфизъм?
+  С други думи, защо $h(m) * h(n) = h(m*n)$ ?
+\end{hint}
 
-Разгледайте
-$h(x) =
-\begin{cases}
-  0, & x = 0\\
-  \frac{1}{x}, & x \neq 0.
-\end{cases}$
+\begin{problem}
+  Да разгледаме структурата $\A = (\mathscr{P}(\Nat), \cap, =)$.  Докажете, че:
+  \begin{itemize}
+  \item
+    $\{\emptyset\}$ и $\{\Nat\}$ са определими;
+  \item
+    Релациите $\subseteq$ и $=$ са определими;
+  \item
+    Операцията $\cup$ е определима;
+  \item
+    $\{A\}$ не е определимо за $A \neq \emptyset, \Nat$.
+  \end{itemize}
+\end{problem}
+\begin{hint}
+  Да фиксираме два елемента $a,b\in\Nat$.
+  Да разгледаме $h:\Nat \to \Nat$ като
+  \[h_{a,b}(x) =
+    \begin{cases}
+      b, & x = a\\
+      a, & x = b\\
+      x, & \text{иначе}.
+    \end{cases}\]
+  Тогава дефинираме $H_{a,b}:\mathscr{P}(\Nat) \to \mathscr{P}(\Nat)$ като
+  $H_{a,b}(A) = \{h_{a,b}(x) \mid x \in A\}$.
+  Защо $H_{a,b}$ е биекция? Защо е автормофизъм?
+\end{hint}
+
+\begin{problem}
+  Да разгледаме структурата $\A = (\Nat, R)$, където $R^\A(x,y) \iff x \mid y$.
+  Докажете, че:
+  \begin{itemize}
+  \item
+    $\{0\}$ и $\{1\}$ са определими;
+  \item
+    Множеството $Pr$ на простите числа е определимо;
+  \item
+    $\{n\}$ не е определимо за $n \neq 0,1$.
+  \end{itemize}
+\end{problem}
+\begin{hint}
+  Отново разгледайте
+  \[h(x) =
+    \begin{cases}
+      x, & \text{ ако }x = 0 \text{ или } x = 1\\
+      p^{\ell_1}_0p^{\ell_0}_1\cdots p^{\ell_k}_k, & \text{ ако }x = p^{\ell_0}_0 p^{\ell_1}_1 \cdots p^{\ell_k}_k
+    \end{cases}\]
+  Ясно е, че $h$ е биекция. Защо $h$ е автоморфизъм?
+  Нека $a = p^{\ell_0}_0 \cdot p^{\ell_1}_1 \cdots p^{\ell_k}_k$ и $b = p^{m_0}_0 \cdot p^{m_1}_1 \cdots p^{m_k}_k$. Тогава
+  $a \mid b \iff \ell_0 \leq m_0\ \&\ \cdots \&\ \ell_k \leq m_k$.
+\end{hint}
+
+\begin{problem}
+  Да разгледаме структурата $\A = (\Real, +, \cdot, =)$.
+  Докажете, че:
+  \begin{itemize}
+  \item
+    Релацията $\leq$ е определима.
+  \item
+    Всяко $\{q\}$ за $q \in \mathbb{Q}$ е определимо.
+  \end{itemize}
+  Намерете автоморфизмите на $\A$.
+\end{problem}
+\begin{hint}
+  Знаем, че всяко $r \in \Real$ може да се характеризира с редица от рационални числа $(q_n)^\infty_{n=0}$, такава че
+  за всяко $n$ е изпълнено:
+  \[ q_n - \frac{1}{n} \leq r \leq q_n + \frac{1}{n}.\]
+  Нека $h$ е автоморфизъм на $\A$. Понеже $h(q) = q$ за всяко рационално $q$, то
+  $h(r)$ се характеризира със същата редица от рационални числа $(q_n)^{\infty}_{n=0}$.
+  Заключаваме, че $h(r) = r$.
+\end{hint}
 
 
 
 \section{Изпълнимост}
-
 
 
 %%% Local Variables:
