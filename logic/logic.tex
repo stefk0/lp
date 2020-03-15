@@ -301,18 +301,19 @@
   Ще казваме, че графът $T = (V,E)$ е дърво, ако $T$ е ориентиран ацикличен граф, като съществува връх $r$ (корен), за който
   съществува път от $r$ до всеки друг връх в $V$.
   Нека $\A = (A,\subseteq,=)$ е структура с носител всички дървета $T = (V,E)$, където $V$ е крайно множество от естествени числа.
+  Релацията $\subseteq$ между дървета е дефинирана като $(V_1,E_1) \subseteq (V_2,E_2) \iff V_1 \subseteq V_2\ \land E_1 \subseteq E_2$.
   \begin{itemize}
   \item
-    Празното дърво е $T = (\emptyset,\emptyset)$ е определимо:
-    \[\phi_{\text{empty}}(x) \equiv (\forall y)[x \subseteq y].\]
-  \item
     Тривиалните дървета $T = (\{m\},\emptyset)$ характеризират върховете. 
-    \[\phi_{\text{vertex}}(x) \equiv \neg \phi_{\text{empty}}(x) \land (\forall y)[y \subseteq x \implies (\phi_{\text{empty}}(y) \lor x = y)].\]
+    \[\phi_{\text{vertex}}(x) \equiv (\forall y)[y \subseteq x \implies x = y)].\]
+  \item
+    Дърветата от вида $T = (\{m,n\}, \{\langle m,n \rangle\})$ характеризират ребрата.
+    \[\phi_{\text{edge}}(x) \equiv (\forall y)[(y \subseteq x \land \neg x = y) \implies \phi_{\text{vertex}}(y)].\]
   \item
     Върховете $x$ и $y$ са двата края на реброто $z$:
     \[\phi_{\text{connect}}(x,y,z) \equiv \phi_{\text{vertex}}(x) \land \phi_{\text{vertex}}(y) \land \phi_{\text{edge}}(z) \land x \subseteq z \land y \subseteq z \land \neg x = y.\]
   \item
-    Дърветата $x$ и $y$ са съвместими: 
+    Дърветата $x$ и $y$ са съвместими, т.е. съществува дърво, което ги разширява.
     \[\phi_{\text{compat}}(x,y) \equiv (\exists z)[x \subseteq z \land y \subseteq z].\]
   \item
     Върхът $x$ е входящ за реброто $y$ точно тогава, когато може да се разшири по два различни начина с един нов връх, т.е.
@@ -415,7 +416,7 @@
     \end{cases}\]
 
   Ясно е, че $h$ е биекция. Защо $h$ е автоморфизъм?
-  С други думи, защо $h(m) * h(n) = h(m*n)$ ?
+  С други думи, защо $h(m) \cdot h(n) = h(m \cdot n)$ ?
 \end{hint}
 
 \begin{problem}
