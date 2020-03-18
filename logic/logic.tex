@@ -128,7 +128,7 @@
   \[\{\pair{x,y} \in \Real^2 \mid 0 \leq x - a \leq n\ \&\ 0 \leq y-b \leq n\},\]
   за някои $a, b, n \in \Real$ и $n > 0$.
   Предикатът $P^\A(x,y)$ е истина точно тогава, когато квадратчетата $x$ и $y$ имат обща точка.
-  Обърнете внимание, че като имаме един обект квадратче, ние нямаме начин да намерим координатите на неговите ъглови точки.
+  Обърнете внимание, че като имаме един обект квадратче, ние нямаме начин да намерим координатите на неговите контурни и вътрешни точки.
   Следните релации са определими:
   \begin{enumerate}[1)]
   \item
@@ -269,46 +269,54 @@
   \end{itemize}
 \end{solution}
 
-\begin{problem}
-  Ще казваме, че графът $T = (V,E)$ е дърво, ако $T$ е неориентиран свързан ацикличен граф.
-  Нека $\A = (A,\subseteq,=)$ е структура с носител всички дървета $T = (V,E)$, където $V$ е крайно множество от естествени числа.
-  \begin{itemize}
-  \item
-    Празното дърво е $T = (\emptyset,\emptyset)$ е определимо:
-    \[\phi_{\text{empty}}(x) \equiv (\forall y)[x \subseteq y].\]
-  \item
-    Тривиалните дървета $T = (\{m\},\emptyset)$ характеризират върховете. 
-    \[\phi_{\text{vertex}}(x) \equiv \neg \phi_{\text{empty}}(X) \land (\forall y)[y \subseteq x \implies (\phi_{\text{empty}}(y) \lor x = y)].\]
-  \item
-    $x$ е връх на реброто $y$ в дървото $z$:
-    \[\phi_{\text{in}}(x,y,z) \equiv \phi_{\text{vertex}}(x) \land \phi_{\text{edge}}(z) \land x \subseteq z \land z \subseteq y.\]
-  \item
-    Един връх $x$ в дървото $y$ се нарича листо, ако той има степен $1$.
-    \[\phi_{\text{leaf}}(x,y) \equiv \phi_{\text{vertex}}(x) \land x \subseteq y \land (\neg x = y \implies (\exists z)[\phi_{\text{in}}(x,z,y) \land (\forall z')[\phi_{\text{in}}(x,z',y) \implies z = z']]).\]
-    Формулата може да се запише съкратено и така:
-    \[\phi_{\text{leaf}}(x,y) \equiv \phi_{\text{vertex}}(x) \land x \subseteq y \land (\neg x = y \implies (\exists^{=1} z)[\phi_{\text{in}}(x,z,y)]).\]
-  \item
-    Всеки връх има степен $\leq 2$.
-    \begin{align*}
-      \phi_{\leq 2}(y) \equiv (\forall x)[\phi_{\text{vertex}}(x) \land x \subseteq y \implies \neg (\exists z_1)(\exists z_2)(\exists z_3)[ & \phi_{\text{in}}(x,z_1,y) \land \phi_{\text{in}}(x,z_2,y) \land \phi_{\text{in}}(x,z_3,y) \\
-                                                                                                                         & \land \neg z_1 = z_2 \land \neg z_2 = z_3 \land \neg z_1 = z_3 ].
-    \end{align*}
-  \end{itemize}
-\end{problem}
+% \begin{problem}
+%   Ще казваме, че графът $T = (V,E)$ е дърво, ако $T$ е неориентиран свързан ацикличен граф.
+%   Нека $\A = (A,\subseteq,=)$ е структура с носител всички дървета $T = (V,E)$, където $V$ е крайно множество от естествени числа.
+%   \begin{itemize}
+%   \item
+%     Празното дърво е $T = (\emptyset,\emptyset)$ е определимо:
+%     \[\phi_{\text{empty}}(x) \equiv (\forall y)[x \subseteq y].\]
+%   \item
+%     Тривиалните дървета $T = (\{m\},\emptyset)$ характеризират върховете. 
+%     \[\phi_{\text{vertex}}(x) \equiv \neg \phi_{\text{empty}}(X) \land (\forall y)[y \subseteq x \implies (\phi_{\text{empty}}(y) \lor x = y)].\]
+%   \item
+%     $x$ е връх на реброто $y$ в дървото $z$:
+%     \[\phi_{\text{in}}(x,y,z) \equiv \phi_{\text{vertex}}(x) \land \phi_{\text{edge}}(z) \land x \subseteq z \land z \subseteq y.\]
+%   \item
+%     Един връх $x$ в дървото $y$ се нарича листо, ако той има степен $1$.
+%     \[\phi_{\text{leaf}}(x,y) \equiv \phi_{\text{vertex}}(x) \land x \subseteq y \land (\neg x = y \implies (\exists z)[\phi_{\text{in}}(x,z,y) \land (\forall z')[\phi_{\text{in}}(x,z',y) \implies z = z']]).\]
+%     Формулата може да се запише съкратено и така:
+%     \[\phi_{\text{leaf}}(x,y) \equiv \phi_{\text{vertex}}(x) \land x \subseteq y \land (\neg x = y \implies (\exists^{=1} z)[\phi_{\text{in}}(x,z,y)]).\]
+%   \item
+%     Всеки връх има степен $\leq 2$.
+%     \begin{align*}
+%       \phi_{\leq 2}(y) \equiv (\forall x)[\phi_{\text{vertex}}(x) \land x \subseteq y \implies \neg (\exists z_1)(\exists z_2)(\exists z_3)[ & \phi_{\text{in}}(x,z_1,y) \land \phi_{\text{in}}(x,z_2,y) \land \phi_{\text{in}}(x,z_3,y) \\
+%                                                                                                                          & \land \neg z_1 = z_2 \land \neg z_2 = z_3 \land \neg z_1 = z_3 ].
+%     \end{align*}
+%   \end{itemize}
+% \end{problem}
 
 
-\begin{problem}
-  Ще казваме, че графът $T = (V,E)$ е дърво, ако $T$ е ориентиран ацикличен граф, като съществува връх $r$ (корен), за който
-  съществува път от $r$ до всеки друг връх в $V$.
-  Нека $\A = (A,\subseteq,=)$ е структура с носител всички дървета $T = (V,E)$, където $V$ е крайно множество от естествени числа.
-  Релацията $\subseteq$ между дървета е дефинирана като $(V_1,E_1) \subseteq (V_2,E_2) \iff V_1 \subseteq V_2\ \land E_1 \subseteq E_2$.
+\subsection{Примери}
+
+\begin{example}
+  Ще казваме, че графът $T = (V,E)$ е \emph{кореново дърво}, ако $T$ е ориентиран ацикличен граф съдържащ връх $r$ (корен), за който
+  съществува път от $r$ до всеки друг връх в $T$. 
+  Да обърнем внимание, че според тази дефиниция, всяко дърво има поне един връх.
+  
+  Нека $\A = (A,\subseteq^\A, =^\A)$ е структура с носител всички дървета $T = (V,E)$, където $V$ е крайно множество от естествени числа.
+  Релацията $\subseteq^\A$ между дървета е дефинирана по следния начин:
+  \[(V_1,E_1) \subseteq^\A (V_2,E_2) \iff V_1 \subseteq V_2\ \land E_1 \subseteq E_2.\]
   \begin{itemize}
   \item
-    Тривиалните дървета $T = (\{m\},\emptyset)$ характеризират върховете. 
+    Тривиалните дървета $T = (\{m\},\emptyset)$ характеризират върховете. Можем да определим дали едно дърво е тривиално със предикатна формула от първи ред по
+    следния начин:
     \[\phi_{\text{vertex}}(x) \equiv (\forall y)[y \subseteq x \implies x = y)].\]
+    С други думи, това са точно тези дървета, които нямат същински поддървета.
   \item
     Дърветата от вида $T = (\{m,n\}, \{\langle m,n \rangle\})$ характеризират ребрата.
     \[\phi_{\text{edge}}(x) \equiv (\forall y)[(y \subseteq x \land \neg x = y) \implies \phi_{\text{vertex}}(y)].\]
+    С други думи, това са точно тези дървета, чиито същински поддървета са само тривиалните.
   \item
     Върховете $x$ и $y$ са двата края на реброто $z$:
     \[\phi_{\text{connect}}(x,y,z) \equiv \phi_{\text{vertex}}(x) \land \phi_{\text{vertex}}(y) \land \phi_{\text{edge}}(z) \land x \subseteq z \land y \subseteq z \land \neg x = y.\]
@@ -318,22 +326,22 @@
   \item
     Върхът $x$ е входящ за реброто $y$ точно тогава, когато може да се разшири по два различни начина с един нов връх, т.е.
     \begin{align*}
-      \phi_{\text{in}}(x,y) \equiv & \phi_{\text{vertex}}(x) \land \phi_{\text{edge}}(y) \land x \subseteq y \land (\exists z)[\phi_{\text{vertex}}(z) \land \neg z \subseteq y \land \\
+      \phi_{\text{in}}(x,y) \equiv &\ \phi_{\text{vertex}}(x) \land \phi_{\text{edge}}(y) \land x \subseteq y \land (\exists z)[\phi_{\text{vertex}}(z) \land \neg z \subseteq y \land \\
                                 & (\exists u_1)(\exists u_2)[\neg u_1 = u_2 \land \phi_{\text{connect}}(x,z,u_1) \land \phi_{\text{connect}}(x,z,u_2) \land \\
                                 & \phi_{\text{compat}}(y,u_1) \land \phi_{\text{compat}}(y,u_2)]].
     \end{align*}
   \item
     Върхът $x$ е изходящ за реброто $y$ точно тогава, когато може да се разшири по точно един начин с един нов връх, т.е.
     \begin{align*}
-      \phi_{\text{out}}(x,y) \equiv & \phi_{\text{vertex}}(x) \land \phi_{\text{edge}}(y) \land x \subseteq y \land (\exists z)[\phi_{\text{vertex}}(z) \land \neg z \subseteq y \land \\
+      \phi_{\text{out}}(x,y) \equiv &\ \phi_{\text{vertex}}(x) \land \phi_{\text{edge}}(y) \land x \subseteq y \land (\exists z)[\phi_{\text{vertex}}(z) \land \neg z \subseteq y \land \\
                                  & (\exists u_1)[\phi_{\text{connect}}(x,z,u_1) \land \phi_{\text{compat}}(y,u_1) \land \\
                                  & (\forall u_2)[\phi_{\text{connect}}(x,z,u_2) \land \phi_{\text{compat}}(y,u_2) \implies u_1 = u_2]]].
     \end{align*}
   \item
-    Върхът $x$ е листо на дървото $y$, ако за $x$ няма изходящи ребра в $y$:
+    Върхът $x$ е \emph{листо} на дървото $y$, ако от $x$ няма изходящи ребра в $y$:
     \[\phi_{\text{leaf}}(x,y) \equiv \phi_{\text{vertex}}(x) \land x \subseteq y \land (\forall z)[\phi_{\text{edge}}(z) \land z \subseteq y \implies \neg \phi_{\text{in}}(x,z)]\]
   \item
-    Върхът $x$ е корен на дървото $y$, ако за $x$ няма входящи ребра в $y$:
+    Върхът $x$ е \emph{корен} на дървото $y$, ако за $x$ няма входящи ребра в $y$:
     \[\phi_{\text{root}}(x,y) \equiv \phi_{\text{vertex}}(x) \land x \subseteq y \land (\forall z)[\phi_{\text{edge}}(z) \land z \subseteq y \implies \neg \phi_{\text{out}}(x,z)]\]
   \item
     От върха $x$ в дървото $y$ излизат поне три ребра:
@@ -346,9 +354,10 @@
     Едно дърво $x$ е двоично, ако няма връх $y$, от който да излизат повече от две ребра.
     \[\phi_{\text{bin}}(x) \equiv (\forall y)[\phi_{\text{vertex}}(y) \land y \subseteq x \implies \neg \phi_{\text{out}\geq 3}(y,x)]\]
   \end{itemize}
-  
-\end{problem}
-  
+\end{example}
+
+\newpage
+
 \section{Неопределимост}
 
 Автоморфизъм $h : \A \to \A$
