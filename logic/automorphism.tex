@@ -1,0 +1,77 @@
+\section{Автоморфизъм на структура}
+
+Автоморфизъм $h : \A \to \A$
+\begin{itemize}
+\item
+  $h$ е биекция;
+\item
+  $P^\A(a_1,\dots,a_n) \iff P^\A(h(a_1),\dots,h(a_n))$;
+\item
+  $h(c^\A) = c^\A$;
+\item
+  $h(f^\A(a_1,\dots,a_n)) = f^\A(h(a_1),\dots,h(a_n))$.
+\end{itemize}
+
+\begin{theorem}\label{th:automorphism}
+  $h:\A\to\A$ е автоморфизъм. Нека $\phi(\overline{x})$ е формула на езика на $\A$. Тогава
+  \[\A \models \phi(a_1,\dots,a_n) \iff \A \models \phi(h(a_1),\dots,h(a_n)).\]
+\end{theorem}
+
+\subsection{Примери за неопределимост}
+
+\begin{example}
+  Да разгледаме структурата $\A = (\mathbb{N}, \cdot ,=)$. Да разгледаме някои от свойствата на тази структура.
+  \begin{itemize}
+  \item 
+    Както преди, лесно се съобразява, че $\{0\}$ и $\{1\}$ са определими множества.
+  \item
+    Можем да определим кога едно число е просто.
+    \[\phi_{\text{prime}}(x) \equiv \neg \phi_0(x) \land \neg \phi_1(x) \land (\forall y)(\forall z)[\ y \cdot z = x \to (\phi_1(y) \lor \phi_1(z))\ ].\]
+  \item
+    За разлика от преди обаче, сега ще видим, че синглетоните $\{n\}$ за $n > 1$ не са определими.
+    Ще докажем това като използваме \Theorem{automorphism}.
+  \end{itemize}
+  
+  
+
+  Нека $p_0,p_1,p_2,\dots$ е редицата от всички прости числа, т.е. $p_0 = 2, p_1 = 3, p_2 = 5, \cdots$
+  За нас ще бъде жизнено важно твърдението, че всяко положително естествено число може да се разложи по единствен начин
+  като произведение от прости множители. Това означава, че всяко положително естествено число $x$ може да се запише във вида
+  $x = p^{\ell_0}_0p^{\ell_1}_1\cdots p^{\ell_k}_k$.
+  Нека дефинираме функция $h:\Nat \to \Nat$ по следния начин:
+  \[h(x) =
+    \begin{cases}
+      x, & \text{ ако }x = 0 \text{ или } x = 1\\
+      p^{\ell_1}_0p^{\ell_0}_1\cdots p^{\ell_k}_k, & \text{ ако }x = p^{\ell_0}_0 p^{\ell_1}_1 \cdots p^{\ell_k}_k
+    \end{cases}\]
+  Лесно се съобразява, че $h$ е биекция. Защо $h$ е автоморфизъм ?
+  С други думи, защо $h(x) \cdot h(y) = h(x \cdot y)$ ?
+  
+  \begin{align*}
+    h(x) \cdot h(y) & = h(p^{\ell_0}_0 p^{\ell_1}_1\cdots p^{\ell_k}_k) \cdot h(p^{m_0}_0 p^{m_1}_1\cdots p^{m_k}_k)\\
+                    & = p^{\ell_1}_0 p^{\ell_0}_1\cdots p^{\ell_k}_k \cdot p^{m_1}_0 p^{m_0}_1\cdots p^{m_k}_k\\
+                    & = p^{\ell_1+m_1}_0 p^{\ell_0+m_0}_1\cdots p^{\ell_k+m_k}_k\\
+                    & = h(p^{\ell_0+m_0}_0 p^{\ell_1+m_1}_1\cdots p^{\ell_k}_k)\\
+                    & = h(p^{\ell_0}_0 p^{\ell_1}_1\cdots p^{\ell_k}_k \cdot p^{m_0}_0 p^{m_1}_1\cdots p^{m_k}_k)\\
+                    & = h(x \cdot y).
+  \end{align*}
+
+  Аналогично, за всяка двойка $i < j$, можем да дефинираме автоморфизма
+  \[h_{i,j}(x) =
+    \begin{cases}
+      x, & \text{ ако }x = 0 \text{ или } x = 1\\
+      p^{\ell_0}_0 \cdots p_i^{\ell_j} \cdots p^{\ell_i}_j \cdots p^{\ell_k}_k, & \text{ ако }x = p^{\ell_0}_0 \cdots p^{\ell_i}_i \cdots p^{\ell_j}_j \cdots p^{\ell_k}_k
+    \end{cases}
+  \]
+  
+  Сега лесно се съобразява, че, например, $\{12\}$ не е определимо.
+  За да бъде определимо, трябва $\{12\} = \{h_{0,1}(12)\}$, т.е. $h_{0,1}(12) = 12$, но
+  $h_{0,1}(2^2 \cdot 3^1) = 2^1 \cdot 3^2 \neq 12$.
+
+\end{example}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../lp"
+%%% End:

@@ -1,0 +1,236 @@
+\subsection{Примери за определимост}
+
+\begin{example}
+  За езика $\L = \{P,Q\}$, където $\sharp P = 3$ и $\sharp Q = 3$,
+  да разгледаме структурата $\A = (\Nat, P^\A,Q^\A)$, където
+  \begin{align*}
+    & P^\A(a,b,c) \stackrel{\text{деф}}{\iff} a+b = c\\
+    & Q^\A(a,b,c) \stackrel{\text{деф}}{\iff} a\cdot b = c.
+  \end{align*}
+  \begin{itemize}
+  \item
+    Можем да определим релацията \emph{,,четност''} на едно естествено число като:
+    \[\phi_{\text{even}}(x) \equiv (\exists y)[P(x,x,y)].\]
+    Тази формула е екзистенциална.
+  \item
+    Съответно, релацията \emph{,,нечетност''} на едно естествено число като:
+    \[\phi_{\text{odd}}(x) \equiv \neg \phi_{\text{even}}(x).\]
+    Тази формула е универсална, защото
+    \begin{align*}
+      \phi_{\text{odd}}(x) & \iff \neg (\exists y)[P(x,x,y)]\\
+                           & \iff (\forall y)[\neg P(x,x,y)].
+    \end{align*}
+  \item
+    Релацията \emph{,,по-малко''} е определима с формулата
+    \[\phi_{\leq}(x,y) \equiv (\exists z)[P(x,z,y)].\]
+  \item
+    Очевидно е, че можем да определим релацията \emph{,,равенство''} по следния начин:
+    \[\phi_{=}(x,y) \equiv \phi_{\leq}(x,y) \land \phi_{\leq}(y,x).\]
+  \item
+    Сега можем да определим множеството $\{0\}$ по следния начин:
+    \[\phi_0(x) \equiv (\exists y)[P(x,y,y)].\]
+    Ясно е, че $\{0\} = \{a \in \Nat \mid \A \models \phi_0(a)\}$, защото
+    $a = 0 \iff (\exists b\in\Nat)[a+b = b]$.
+  \item
+    След като сме определили нулата, можем да определим и релацията \emph{,,строго по-малко''} по следния начин:
+    \[\phi_{<}(x,y) \equiv (\exists z)[\neg \phi_0(z) \land P(x,z,y)].\]
+  \item
+    Можем да определим и множеството $\{1\}$ така:
+    \[\phi_1(x) \equiv (\forall y)[Q(x,y,y)],\]
+    защото $a = 1 \iff (\forall b \in \Nat)[a \cdot b = b]$.
+  \item
+    Сега като вече имаме единицата, можем да определим кога $b$ е наследник на $a$, т.е. кога $b = a + 1$.
+    Дефинираме
+    \[\phi_{\text{succ}}(x,y) \equiv (\exists z)[\phi_1(z) \land P(x,z,y)].\]
+  \item
+    Вече сме готови да съобразим, че всяко множество от вида $\{n\}$
+    е определимо с предикатна формула от първи ред $\phi_n(x)$.
+    Това вече сме направили за $\{0\}$ и $\{1\}$.
+    Да приемем, че имаме формулата $\phi_n(x)$. Дефинираме
+    \[\phi_{n+1}(x) \equiv (\exists z)[\phi_n(z) \land \phi_{\text{succ}}(z,x)].\]
+  \item
+    Можем да определим и релацията кога едно число се дели на друго:
+    \[\phi_{\text{div}}(x,y) \equiv (\exists z)[Q(x,z,y)].\]
+  \item
+    Сега сме готови да определим релацията кога едно число е просто:
+    \[\phi_{\text{prime}}(x) \equiv (\exists z)[\phi_2(z) \land \phi_{\leq}(z,x) \land (\forall y)[\phi_{\text{div}}(y,x) \implies (\phi_1(y) \lor
+    \phi_{=}(y,x))]].\]
+  \end{itemize}
+\end{example}
+
+\begin{example}
+  Да разгледаме езика $\L = \{P\}$, с $\sharp P = 3$, и структурата $\A = (\Nat, P^\A)$, където
+  \[P^\A(a,b,c) \iff a + b = c+2.\]
+  Ще видим, че за всяко естествено число $n$ съществува предикатна формула от първи ред $\phi_n(x)$, такава че:
+  \[\{k \in \Nat \mid \A \models \phi_n(k)\} = \{n\}.\]
+  С други думи, синглетоните $\{n\}$ са определими.
+
+  \begin{itemize}
+  \item
+    Най-лесно е да определим $\{2\}$, защото 
+    \begin{align*}
+      a = 2 & \iff a + a = a + 2\\
+            & \iff \A \models P(a,a,a).
+    \end{align*}
+    Нека \[\phi_2(x) \equiv P(x,x,x).\]
+    Тази формула е дори атомарна.
+  \item
+    Сега пък веднага можем да определим релацията \emph{,,равенство''}, защото
+    \begin{align*}
+      a = b & \iff a + 2 = b + 2\\
+            & \iff \A \models (\exists x)[ \phi_2(x) \land P(a,x,b)].
+    \end{align*}
+    Нека
+    \[\phi_{=}(x,y) \equiv (\exists z)[ \phi_2(z) \land P(x,z,y)].\]
+    Тази формула е екзистенциална.
+  \item
+    Лесно се съобразява, че числото $2$ е единственото естествено число, което
+    може да се представи по точно три различни начина като сума на все числа, т.е.
+    \[0 + 2 = 2 \lor 1 + 1 = 2 \lor 2+0 = 2.\]
+    Така можем да определим $\{0\}$ по следния начин:
+    \[\phi_0(z) \equiv (\forall x)(\forall y)[ (\neg \phi_{=}(x,y) \land P(x,y,z)) \to (\phi_2(x) \lor \phi_2(y))].\]
+    С други думи, $z = 0$ точно тогава, когато всеки две различни числа $x$ и $y$, за които $x + y = z + 2$, то $x = 2$ или $y = 2$.
+  \item
+    Оттук веднага можем да определим $\{1\}$ като:
+    \[\phi_{1}(z) \equiv (\exists x)[\phi_0(x) \land P(z,z,x)].\]
+  \item
+    Сега вече сме готови да видим как можем да дефинираме $\phi_n(x)$ за всяко $n$.
+    Да дефинираме кога $y$ е наследник на $x$, т.е. 
+    $y = x + 1 \iff y + 1 = x + 2$.
+    Това можем да направим по следния начин:
+    \[\phi_{\text{succ}}(x,y) \equiv (\exists z)[\phi_1(z) \land P(y,z,x)].\]
+  \item
+    Да приемем, че сме дефинирали $\phi_n(x)$. Тогава дефинираме:
+    \[\phi_{n+1}(x) \equiv (\exists z)[\phi_n(z) \land \phi_{\text{succ}}(z,x)].\]
+  \item
+    Ще завършим като съобразим, че можем да определим и релацията \emph{,,строго по-малко''}, защото
+    \begin{align*}
+      a < b & \iff (\exists c\in\Nat)[ c \geq 1\ \&\ a + c = b ]\\
+            & \iff (\exists c\in\Nat)[ c \geq 3\ \&\ a + c = b + 2 ]\\
+            & \iff (\exists c\in\Nat)[ c \neq 0\ \&\ c \neq 1\ \&\ c \neq 2\ \&\ a + c = b + 2 ].
+    \end{align*}
+    Тогава
+    \[\phi_{<}(x,y) \equiv (\exists z)[\neg \phi_0(z) \land \neg \phi_1(z) \land \neg \phi_2(z) \land P(x,z,y)].\]
+  \end{itemize}
+\end{example}
+
+\begin{example}
+  Нека имаме език $\L = \{P\}$, с $\sharp P = 2$, и структура $\A$ за езика $\L$, където
+  универсумът на $\A$ е множество от квадратчета със страна $> 0$, т.е.
+  едно квадратче е множеството
+  \[\{\pair{x,y} \in \Real^2 \mid 0 \leq x - a \leq n\ \&\ 0 \leq y-b \leq n\},\]
+  за някои $a, b, n \in \Real$ и $n > 0$.
+  Предикатът $P^\A(x,y)$ е истина точно тогава, когато квадратчетата $x$ и $y$ имат обща точка.
+  Обърнете внимание, че като имаме един обект квадратче, ние нямаме начин да намерим координатите на неговите контурни и вътрешни точки.
+  \begin{itemize}
+  \item
+    Можем да определим релацията \emph{,,включване''} между квадратчета по следния начин:
+    \[\phi_{\subseteq}(x,y) \equiv (\forall z)[P(x,z) \to P(y,z)].\]
+    С други думи, едно квадратче $x$ се включва в друго $y$ точно тогава, когато
+    всяко квадратче $z$, което има общи точки с $x$, то $z$ има общи точки и с $y$.
+  \item
+    Сега вече е ясно как да дефинираме релацията \emph{,,равенство''} между квадратчета:
+    \[\phi_{=}(x,y) \equiv \phi_{\subseteq}(x,y) \land \phi_{\subseteq}(y,x).\]
+  \item
+    Релацията, която казва, че две квадратчета имат \emph{непразно сечение} можем да определим така:
+    \[\phi_{\cap}(x,y) \equiv (\exists z)[\phi_{\subseteq}(z,x) \land \phi_{\subseteq}(z,y)].\]
+    С други думи, две квадратчето $x$ има непразно сечение с квадратчето $y$, ако някое
+    квадратче $z$ с включва и в $x$ и в $y$.
+    Обърнете внимание, че релацията \emph{,,непразно сечение''} е различна от релацията \emph{,,общи точки''}.
+  \item
+    От друга страна, можем да определим релацията, че две квадратчета имат за сечени квадрат по следния начин:
+    \begin{align*}
+      \phi_{\text{square}}(x,y) \equiv P(x,y) \land (\exists z_1)[ & \phi_{\subseteq}(z_1,x) \land \phi_{\subseteq}(z_1,y) \land \\
+                                                    & (\forall z_2)[\phi_{\subseteq}(z_2,x) \land \phi_{\subseteq}(z_2,y) \to \phi_{\subseteq}(z_2,z_1)]].
+    \end{align*}
+    С други думи, най-голято общо сечение на $x$ и $y$ е квадрат.
+  \item
+    Релацията \emph{,,обща стена''} не две квадратчета може да се определи така:
+    \begin{align*}
+      \phi_{\text{wall}}(x,y) \equiv & \ P(x,y) \land \neg \phi_{\cap}(x,y) \land\\
+                                     & (\exists z_1)(\exists z_2)[\neg P(z_1,z_2) \land \phi_{\subseteq}(z_1,x) \land \phi_{\subseteq}(z_2,x) \land P(z_1,y)\land P(z_2,y)].
+    \end{align*}
+    С други думи, има две различни квадратчета $z_1$ и $z_2$, които се включват в $x$ и същевременно с това имат общи точки с $y$.
+  \item
+    Релацията \emph{,,точно една обща точка''} между две квадратчета може да се определи така:
+    \begin{align*}
+      \phi_{\text{point}}(x,y) \equiv & \ P(x,y) \land \neg \phi_{\cap}(x,y) \land\\
+                                      & (\forall z_1)(\forall z_2)[\neg P(z_1,z_2) \land \phi_{\subseteq}(z_1,x) \land \phi_{\subseteq}(z_2,x) \to \neg(P(z_1,y)\land P(z_2,y))].
+    \end{align*}
+    С други думи, няма две различни квадратчета $z_1$ и $z_2$, които да се включват в $x$ и същевременно с това да имат общи елементи с $y$.
+  \item
+    Съобразете сами, че можем да определим релацията \emph{,,точно една обща точка''} между две квадратчета може да се определи и така:
+    \begin{align*}
+      \phi_{\text{point}}(x,y) \equiv \ P(x,y) \land (\forall z)[ & ( P(z,x) \land P(z,y) \land \neg \phi_{\subseteq}(z,x) \land \phi_{\subseteq}(z,y)) \to \\
+                                                                  & (\exists u)[\phi_{\subseteq}(u,z) \land \neg P(u,x) \land \neg P(u,y)]] 
+    \end{align*}
+  \item
+    Съобразете сами, че релацията \emph{,,обща стена''} не две квадратчета може да се определи и така:
+    \[\phi_{\text{wall}}(x,y) \equiv P(x,y) \land \neg \phi_{\text{point}}(x,y) \land \neg \phi_{\cap}(x,y).\]
+  \end{itemize}
+\end{example}
+
+\begin{example}
+  Ще казваме, че графът $T = (V,E)$ е \emph{кореново дърво}, ако $T$ е ориентиран ацикличен граф съдържащ връх $r$ (корен), за който
+  съществува път от $r$ до всеки друг връх в $T$. 
+  Да обърнем внимание, че според тази дефиниция, всяко дърво има поне един връх.
+
+  За езика $\L = \{\subseteq, =\}$, да дефинираме $\A = (A,\subseteq^\A, =^\A)$ е структура с носител всички дървета $T = (V,E)$, където $V$ е крайно множество от естествени числа.
+  Релацията $\subseteq^\A$ между дървета е дефинирана по следния начин:
+  \begin{align*}
+    & (V_1,E_1) \subseteq^\A (V_2,E_2) \stackrel{\text{деф}}{\iff} V_1 \subseteq V_2\ \land E_1 \subseteq E_2;\\
+    & (V_1,E_1) =^\A (V_2,E_2) \stackrel{\text{деф}}{\iff} V_1 = V_2\ \land E_1 = E_2.
+  \end{align*}
+  \begin{itemize}
+  \item
+    Дървета от вида $T = (\{m\},\emptyset)$ характеризират върховете. Можем да определим дали едно дърво е тривиално със предикатна формула от първи ред по
+    следния начин:
+    \[\phi_{\text{vertex}}(x) \equiv (\forall y)[y \subseteq x \to x = y)].\]
+    С други думи, това са точно тези дървета, които нямат същински поддървета.
+  \item
+    Дърветата от вида $T = (\{m,n\}, \{\langle m,n \rangle\})$ характеризират ребрата.
+    \[\phi_{\text{edge}}(x) \equiv (\forall y)[(y \subseteq x \land \neg x = y) \to \phi_{\text{vertex}}(y)].\]
+    С други думи, това са точно тези дървета, чиито същински поддървета са само тези, които характеризират върхове.
+  \item
+    Върховете $x$ и $y$ са двата края на реброто $z$:
+    \[\phi_{\text{connect}}(x,y,z) \equiv \phi_{\text{vertex}}(x) \land \phi_{\text{vertex}}(y) \land \phi_{\text{edge}}(z) \land x \subseteq z \land y \subseteq z \land \neg x = y.\]
+  \item
+    Дърветата $x$ и $y$ са съвместими, т.е. съществува дърво, което ги разширява.
+    \[\phi_{\text{compat}}(x,y) \equiv (\exists z)[x \subseteq z \land y \subseteq z].\]
+  \item
+    Върхът $x$ е входящ за реброто $y$ точно тогава, когато може да се разшири по два различни начина с един нов връх, т.е.
+    \begin{align*}
+      \phi_{\text{in}}(x,y) \equiv &\ \phi_{\text{vertex}}(x) \land \phi_{\text{edge}}(y) \land x \subseteq y \land (\exists z)[\phi_{\text{vertex}}(z) \land \neg z \subseteq y \land \\
+                                & (\exists u_1)(\exists u_2)[\neg u_1 = u_2 \land \phi_{\text{connect}}(x,z,u_1) \land \phi_{\text{connect}}(x,z,u_2) \land \\
+                                & \phi_{\text{compat}}(y,u_1) \land \phi_{\text{compat}}(y,u_2)]].
+    \end{align*}
+  \item
+    Върхът $x$ е изходящ за реброто $y$ точно тогава, когато може да се разшири по точно един начин с един нов връх, т.е.
+    \begin{align*}
+      \phi_{\text{out}}(x,y) \equiv &\ \phi_{\text{vertex}}(x) \land \phi_{\text{edge}}(y) \land x \subseteq y \land (\exists z)[\phi_{\text{vertex}}(z) \land \neg z \subseteq y \land \\
+                                 & (\exists u_1)[\phi_{\text{connect}}(x,z,u_1) \land \phi_{\text{compat}}(y,u_1) \land \\
+                                 & (\forall u_2)[\phi_{\text{connect}}(x,z,u_2) \land \phi_{\text{compat}}(y,u_2) \to u_1 = u_2]]].
+    \end{align*}
+  \item
+    Върхът $x$ е \emph{листо} на дървото $y$, ако от $x$ няма изходящи ребра в $y$:
+    \[\phi_{\text{leaf}}(x,y) \equiv \phi_{\text{vertex}}(x) \land x \subseteq y \land (\forall z)[\phi_{\text{edge}}(z) \land z \subseteq y \to \neg \phi_{\text{in}}(x,z)]\]
+  \item
+    Върхът $x$ е \emph{корен} на дървото $y$, ако за $x$ няма входящи ребра в $y$:
+    \[\phi_{\text{root}}(x,y) \equiv \phi_{\text{vertex}}(x) \land x \subseteq y \land (\forall z)[\phi_{\text{edge}}(z) \land z \subseteq y \to \neg \phi_{\text{out}}(x,z)]\]
+  \item
+    От върха $x$ в дървото $y$ излизат поне три ребра:
+    \begin{align*}
+      \phi_{\text{out}\geq 3}(x,y) \equiv \phi_{\text{vertex}}(x) \land x \subseteq y \land (\exists z_1)(\exists z_2)(\exists z_3)[ & \neg z_1 = z_2 \land \neg z_2 = z_3 \land \neg z_1 = z_3 \land \\
+                                                                                                                       & z_1 \subseteq y \land z_2 \subseteq y \land z_3 \subseteq y \land\\
+                                                                                                                       & \phi_{\text{out}}(x,z_1) \land \phi_{\text{out}}(x,z_2) \land \phi_{\text{out}}(x,z_3)].
+    \end{align*}
+  \item
+    Едно дърво $x$ е двоично, ако няма връх $y$, от който да излизат повече от две ребра.
+    \[\phi_{\text{bin}}(x) \equiv (\forall y)[\phi_{\text{vertex}}(y) \land y \subseteq x \to \neg \phi_{\text{out}\geq 3}(y,x)]\]
+  \end{itemize}
+\end{example}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../lp"
+%%% End:
