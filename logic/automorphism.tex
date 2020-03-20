@@ -22,10 +22,10 @@
 \begin{example}
   Да разгледаме структурата $\A = (\mathbb{N}, \cdot ,=)$. Да разгледаме някои от свойствата на тази структура.
   \begin{itemize}
-  \item 
-    Както преди, лесно се съобразява, че $\{0\}$ и $\{1\}$ са определими множества.
   \item
-    Можем да определим кога едно число е просто.
+    Както в \Example{definability:nat-plus-mult}, лесно се съобразява, че $\{0\}$ и $\{1\}$ са определими множества.
+  \item
+    Можем да определим кога едно число е просто:
     \[\phi_{\text{prime}}(x) \equiv \neg \phi_0(x) \land \neg \phi_1(x) \land (\forall y)(\forall z)[\ y \cdot z = x \to (\phi_1(y) \lor \phi_1(z))\ ].\]
   \item
     За разлика от преди обаче, сега ще видим, че синглетоните $\{n\}$ за $n > 1$ не са определими.
@@ -36,8 +36,8 @@
 
   Нека $p_0,p_1,p_2,\dots$ е редицата от всички прости числа, т.е. $p_0 = 2, p_1 = 3, p_2 = 5, \cdots$
   За нас ще бъде жизнено важно твърдението, че всяко положително естествено число може да се разложи по единствен начин
-  като произведение от прости множители. Това означава, че всяко положително естествено число $x$ може да се запише във вида
-  $x = p^{\ell_0}_0p^{\ell_1}_1\cdots p^{\ell_k}_k$.
+  като произведение от прости множители. Това означава, че всяко естествено число $x > 1$ може да се запише във вида
+  $x = p^{\ell_0}_0p^{\ell_1}_1\cdots p^{\ell_k}_k$, където $\ell_k > 0$.
   Нека дефинираме функция $h:\Nat \to \Nat$ по следния начин:
   \[h(x) =
     \begin{cases}
@@ -45,8 +45,7 @@
       p^{\ell_1}_0p^{\ell_0}_1\cdots p^{\ell_k}_k, & \text{ ако }x = p^{\ell_0}_0 p^{\ell_1}_1 \cdots p^{\ell_k}_k
     \end{cases}\]
   Лесно се съобразява, че $h$ е биекция. Защо $h$ е автоморфизъм ?
-  С други думи, защо $h(x) \cdot h(y) = h(x \cdot y)$ ?
-  
+  С други думи, защо $h(x) \cdot h(y) = h(x \cdot y)$ ? Да проследим равенствата:  
   \begin{align*}
     h(x) \cdot h(y) & = h(p^{\ell_0}_0 p^{\ell_1}_1\cdots p^{\ell_k}_k) \cdot h(p^{m_0}_0 p^{m_1}_1\cdots p^{m_k}_k)\\
                     & = p^{\ell_1}_0 p^{\ell_0}_1\cdots p^{\ell_k}_k \cdot p^{m_1}_0 p^{m_0}_1\cdots p^{m_k}_k\\
@@ -59,7 +58,7 @@
   Аналогично, за всяка двойка $i < j$, можем да дефинираме автоморфизма
   \[h_{i,j}(x) =
     \begin{cases}
-      x, & \text{ ако }x = 0 \text{ или } x = 1\\
+      x, & \text{ ако }x = 0\text{ или } x = 1\\
       p^{\ell_0}_0 \cdots p_i^{\ell_j} \cdots p^{\ell_i}_j \cdots p^{\ell_k}_k, & \text{ ако }x = p^{\ell_0}_0 \cdots p^{\ell_i}_i \cdots p^{\ell_j}_j \cdots p^{\ell_k}_k
     \end{cases}
   \]
@@ -68,6 +67,101 @@
   За да бъде определимо, трябва $\{12\} = \{h_{0,1}(12)\}$, т.е. $h_{0,1}(12) = 12$, но
   $h_{0,1}(2^2 \cdot 3^1) = 2^1 \cdot 3^2 \neq 12$.
 
+\end{example}
+
+
+\begin{example}
+  За произволни $a,b \in \Real$, ще казваме, че
+  \[\ell_{a,b} \df \{\pair{\lambda a, \lambda b} \in \Real^2 \mid \lambda \in \Real^+\}\]
+  е \emph{лъч} с начало $(0,0)$. Тук $\Real^+ = \Real \cap [0,+\infty)$.
+  Лъчът $\ell_{0,0}$ ще наричаме \emph{тривиален}.
+
+  За едно непразно подмножество $C$ на $\Real^2$ ще казваме, че е \emph{конус}, ако удовлетворява следното свойство:
+  \begin{equation}
+    \label{eq:1}
+    \pair{a,b} \in C \iff \ell_{a,b} \subseteq C.
+  \end{equation}
+  Обърнете внимание, че всеки лъч е частен случай на конус.
+  Нека $\texttt{Cone}$ да бъде съвкупността от всички конуси. Да разгледаме структурата $\A = (\mathcal{P}(\Real^2), Cone^\A, Cut^\A)$, където
+  \begin{align*}
+    & Cone^A(c) \stackrel{\text{деф}}{\iff} c \in \texttt{Cone}\\
+    & Cut^\A(c_1,c_2) \stackrel{\text{деф}}{\iff} (c_1 \cap c_2) \setminus \ell_{0,0} \neq \emptyset.
+  \end{align*}
+  \begin{itemize}
+  \item
+    Можем да определим тривиалния лъч $\ell_{0,0}$ в $\A$ по следния начин:
+    \[\phi_{\text{trivial}}(x) \equiv Cone(x) \land (\forall y)[\ \neg Cut(x,y)\ ].\]
+    Можем да определим също така множеството $\emptyset$ и множеството $\Real$ в $\A$ по следния начин:
+    \begin{align*}
+      & \phi_{\emptyset}(x) \equiv \neg Cone(x) \land (\forall y)[\ \neg Cut(x,y)\ ].\\
+      & \phi_{\Real}(x) \equiv (\forall y)[\ (\neg \phi_{\text{trivial}}(y) \land \neg \phi_{\emptyset}(y)) \to Cut(x,y)\ ].
+    \end{align*}
+  \item
+    Можем да определим релацията \emph{,,включване''} на един конус $x$ в друг конус $y$:
+    \[\phi_{\subseteq}(x,y) \equiv Cone(x) \land Cone(y) \land (\forall z)[Cut(x,z) \to Cut(y,z)].\]
+    Автоматично вече имаме определение и на релацията \emph{,,равенство''} на конусите $x$ и $y$:
+    \[\phi_{=}(x,y) \equiv \phi_{\subseteq}(x,y) \land \phi_{\subseteq}(y,x).\]
+  \item
+    Можем също така да определим кога едно множество представлява лъч така:
+    \[\phi_{\text{line}}(x) \equiv Cone(x) \land (\forall y)[\ (\phi_{\subseteq}(y,x) \land \neg \phi_{\text{trivial}}(y)) \to \phi_{=}(y,x)\ ].\]
+    С други думи, множеството $\texttt{Line}$ от всички лъчи е определимо.
+  \item
+    Сега ще видим, макар и $\texttt{Line}$ и $\{\ell_{0,0}\}$ да са определими,
+    то за никоя двойка $\pair{a,b} \neq \pair{0,0}$ не е вярно, че синглетонът $\{\ell_{a,b}\}$ е определим.
+    За целта първо дефинираме функцията $h:\Real^2 \to \Real^2$ като:
+    \[h(\pair{a,b}) \df \pair{-a,-b}.\]
+    Очевидно е, че $h(\pair{-a,-b}) = \pair{a,b}$.
+    Лесно се съобразява, че $h$ е биекция.
+    Сега нека $H:\mathcal{P}(\Real^2) \to \mathcal{P}(\Real^2)$ дефинираме така:
+    \[H(A) \df \{h(\pair{a,b}) \mid \pair{a,b} \in A\}.\]
+    Отново лесно се съобразява, че $H$ е биекция.
+    Интересното е да видим защо $H$ задава автоморфизъм на $\A$.
+    Първо да отбележим, че имаме свойствата:
+    \begin{align}
+      & A \subseteq B \iff H(A) \subseteq H(B) \label{eq:2}\\
+      & H(\ell_{a,b}) = \ell_{-a,-b} \label{eq:3}\\
+      & H(\ell_{-a,-b}) = \ell_{a,b} \label{eq:4}
+    \end{align}
+    Нека $C$ е конус. Да видим защо $H(C)$ е конус, т.е. да проверим Свойство~(\ref{eq:1}).
+    Да проследим еквивалентностите:
+    \begin{align*}
+      \pair{a,b} \in H(C) & \iff h(\pair{-a,-b}) \in H(C)\\
+                          & \iff \pair{-a,-b} \in C & \comment\text{деф. на }H\\
+                          & \iff \ell_{-a,-b} \subseteq C & \comment\text{от Свойство~(\ref{eq:1})}\\
+                          & \iff H(\ell_{-a,-b}) \subseteq H(C) & \comment\text{от Свойство~(\ref{eq:2}})\\
+                          & \iff \ell_{a,b} \subseteq H(C). & \comment\text{от Свойство~(\ref{eq:4}})
+    \end{align*}
+    Аналогично, нека $H(C)$ е конус. Да видим защо $C$ е конус.
+    \begin{align*}
+      \pair{a,b} \in C & \iff h(\pair{a,b}) \in H(C)\\
+                       & \iff \pair{-a,-b} \in H(C) & \comment\text{деф. на }H\\
+                       & \iff \ell_{-a,-b} \subseteq H(C) & \comment\text{от Свойство~(\ref{eq:1})}\\
+                       & \iff H(\ell_{a,b}) \subseteq H(C) & \comment\text{от Свойство~(\ref{eq:3}})\\
+                       & \iff \ell_{a,b} \subseteq C. & \comment\text{от Свойство~(\ref{eq:2}})
+    \end{align*}
+
+    Сега трябва да се справим с втория предикат в структурата $\A$.
+    Тук лесно се проверява, че
+    \[(A\cap B)\setminus \ell_{0,0} \neq \emptyset \iff (H(A) \cap H(B)) \setminus \ell_{0,0} \neq \emptyset,\]
+    защото имаме за произволно $A \subseteq \Real^2$, че:
+    \[\ell_{0,0} \in A \iff \ell_{0,0} \in H(A).\]
+    Така заключаваме, че $H$ е автоморфизъм на $\A$.
+    
+    Накрая, ако допуснем, че $\{\ell_{a,b}\}$ е определимо, то бихме имали, че $\{\ell_{a,b}\} = \{H(\ell_{a,b})\}$.
+    Това е възможно само за $\pair{a,b} = \pair{0,0}$.
+  \item
+    За произволни $a,b \in \Real$, ще казваме, че
+    \[\pi_{a,b} \df \{ \pair{\lambda a, \lambda b} \in \Real^2 \mid \lambda \in \Real\}\]
+    е \emph{права}.
+    Сега вече лесно можем да докажем, че за всяка двойка $\pair{a,b} \neq \pair{0,0}$,
+    синглетонът $\{\pi_{a,b}\}$ не е определим.
+    Обърнете внимание, че $\pi_{a,b} = \pi_{-a,-b} = H(\pi_{a,b})$, т.е. не може да използваме предишния автоморфизъм
+    за да докажем неопределимост на синлетоните $\{\pi_{a,b}\}$.
+    Разгледайте $G:\mathcal{P}(\Real^2) \to \mathcal{P}(\Real^2)$ като
+    \[G(A) \df \{\pair{a,-b} \mid \pair{a,b} \in A\}.\]
+    Аналогично можем да докажем, че $G$ е автоморфизъм.
+    Тогава лесно се съобразява, че $G(\pi_{a,b}) \neq \pi_{a,b}$.
+  \end{itemize}
 \end{example}
 
 
