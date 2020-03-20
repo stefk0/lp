@@ -1,0 +1,50 @@
+\section{Изпълнимост}
+
+\begin{itemize}
+\item
+  Релация на еквивалентност
+\item
+  Частична наредба
+\end{itemize}
+
+
+\begin{example}
+  За езика $\mathcal{L} = \{P,=\}$, да разгледаме следните \emph{затворени} формули:
+  \begin{align*}
+    & \phi_1 \equiv (\forall x)(\forall y)[\ P(x,y) \lor P(y,x) \lor x = y\ ]\\
+    & \phi_2 \equiv \neg (\exists x)(\exists y)(\exists z)[\ P(x,y) \land P(y,z) \land P(z,x)\ ]\\
+    & \phi_3 \equiv (\exists x)(\exists y)(\exists z)(\exists t)[\ P(x,y) \land P(y,z) \land P(z,y) \land P(t,x)\ ]\\
+    & \phi_4 \equiv (\forall x)(\forall y)(\exists z)[\ P(x,z) \land P(z,y)\ ]
+  \end{align*}
+  Да видим кои от следните множества от формули:
+  \[\Phi_1 = \{\phi_1,\phi_2\}, \Phi_2 = \{\phi_1, \phi_2, \phi_3\}, \Phi_3 = \{ \phi_1, \phi_2, \phi_4\}, \Phi_4 = \{\phi_1,\phi_2,\phi_3,\phi_4\}\]
+  са изпълними и кои не.
+\end{example}
+
+\begin{example}
+  Нека $\mathcal{L} = \{P, f\}$.
+  \begin{align*}
+    & \phi_1 \equiv (\forall x)[\ \neg P(f(x),x) \land (\exists y)[P(f(x),y)]\ ]\\
+    & \phi_2 \equiv (\forall x)(\forall y)[\ P(x,y) \to (\exists z)[P(x,z) \land \neg P(z,z) \land P(z,f(x))]\ ]\\
+    & \phi_3 \equiv \neg (\forall x)(\forall y)(\forall z)[\ P(x,y) \land P(y,z) \to \neg P(f(x), z)\ ]
+  \end{align*}
+  Да видим защо множеството $\Phi = \{\phi_1,\phi_2,\phi_3\}$ е изпълнимо.
+\end{example}
+
+\begin{example}
+  За езика $\mathcal{L} = \{f,=\}$ да разгледаме затворените формули:
+  \begin{align*}
+    & \phi_1 \equiv (\forall x)(\forall y)(\forall z)[\ f(f(x,y),z) = f(x, f(y,z))\ ]\\
+    & \phi_2 \equiv (\exists x)(\forall y)[\ f(x,y) = y \land f(y,x) = y\ ]\\
+    & \phi_3 \equiv (\forall x)[\ f(x,x) = x\ ]\\
+    & \phi_4 \equiv (\exists x)(\exists y)[\ \neg x = y\ ]\\
+  \end{align*}
+  Да видим защо множеството от формули $\Phi = \{\phi_1,\phi_2,\phi_3,\phi_4\}$ е изпълнимо.
+\end{example}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../lp"
+%%% End:

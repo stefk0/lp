@@ -1,6 +1,6 @@
 \subsection{Примери за определимост}
 
-\begin{example}
+\begin{example}\label{ex:definability:nat-plus-mult}
   За езика $\L = \{P,Q\}$, където $\sharp P = 3$ и $\sharp Q = 3$,
   да разгледаме структурата $\A = (\Nat, P^\A,Q^\A)$, където
   \begin{align*}
@@ -221,14 +221,16 @@
     От върха $x$ в дървото $y$ излизат поне три ребра:
     \begin{align*}
       \phi_{\text{out}\geq 3}(x,y) \equiv \phi_{\text{vertex}}(x) \land x \subseteq y \land (\exists z_1)(\exists z_2)(\exists z_3)[ & \neg z_1 = z_2 \land \neg z_2 = z_3 \land \neg z_1 = z_3 \land \\
-                                                                                                                       & z_1 \subseteq y \land z_2 \subseteq y \land z_3 \subseteq y \land\\
-                                                                                                                       & \phi_{\text{out}}(x,z_1) \land \phi_{\text{out}}(x,z_2) \land \phi_{\text{out}}(x,z_3)].
+                                                                                  & z_1 \subseteq y \land z_2 \subseteq y \land z_3 \subseteq y \land\\
+                                                                                  & \phi_{\text{out}}(x,z_1) \land \phi_{\text{out}}(x,z_2) \land \phi_{\text{out}}(x,z_3)].
     \end{align*}
   \item
     Едно дърво $x$ е двоично, ако няма връх $y$, от който да излизат повече от две ребра.
     \[\phi_{\text{bin}}(x) \equiv (\forall y)[\phi_{\text{vertex}}(y) \land y \subseteq x \to \neg \phi_{\text{out}\geq 3}(y,x)]\]
   \end{itemize}
 \end{example}
+
+
 
 %%% Local Variables:
 %%% mode: latex
