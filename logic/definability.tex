@@ -10,7 +10,7 @@
   \begin{itemize}
   \item
     Можем да определим релацията \emph{,,четност''} на едно естествено число като:
-    \[\phi_{\text{even}}(x) \equiv (\exists y)[P(x,x,y)].\]
+    \[\phi_{\text{even}}(x) \equiv (\exists y)[P(y,y,x)].\]
     Тази формула е екзистенциална.
   \item
     Съответно, релацията \emph{,,нечетност''} на едно естествено число като:
@@ -28,9 +28,9 @@
     \[\phi_{=}(x,y) \equiv \phi_{\leq}(x,y) \land \phi_{\leq}(y,x).\]
   \item
     Сега можем да определим множеството $\{0\}$ по следния начин:
-    \[\phi_0(x) \equiv (\exists y)[P(x,y,y)].\]
+    \[\phi_0(x) \equiv P(x,x,x).\]
     Ясно е, че $\{0\} = \{a \in \Nat \mid \A \models \phi_0(a)\}$, защото
-    $a = 0 \iff (\exists b\in\Nat)[a+b = b]$.
+    $a = 0 \iff a+a = a$.
   \item
     След като сме определили нулата, можем да определим и релацията \emph{,,строго по-малко''} по следния начин:
     \[\phi_{<}(x,y) \equiv (\exists z)[\neg \phi_0(z) \land P(x,z,y)].\]
@@ -53,8 +53,10 @@
     \[\phi_{\text{div}}(x,y) \equiv (\exists z)[Q(x,z,y)].\]
   \item
     Сега сме готови да определим релацията кога едно число е просто:
-    \[\phi_{\text{prime}}(x) \equiv (\exists z)[\phi_2(z) \land \phi_{\leq}(z,x) \land (\forall y)[\phi_{\text{div}}(y,x) \implies (\phi_1(y) \lor
-    \phi_{=}(y,x))]].\]
+    \[\phi_{\texttt{prime}}(x) \equiv (\exists z)[\phi_2(z) \land \phi_{\leq}(z,x) \land (\forall y)[\phi_{\text{div}}(y,x) \to (\phi_1(y) \lor
+      \phi_{=}(y,x))]].\]
+    Съобразете сами, че следната формула също определя простите числа:
+    \[\phi'_{\texttt{prime}}(x) \equiv (\forall y)(\forall z)[Q(y,z,x) \to (\phi_{=}(y,x) \lor \phi_{=}(z,x)) \land \neg Q(x,x,x)].\]
   \end{itemize}
 \end{example}
 
@@ -229,7 +231,6 @@
     \[\phi_{\text{bin}}(x) \equiv (\forall y)[\phi_{\text{vertex}}(y) \land y \subseteq x \to \neg \phi_{\text{out}\geq 3}(y,x)]\]
   \end{itemize}
 \end{example}
-
 
 
 %%% Local Variables:
