@@ -196,30 +196,44 @@
 
 
 \begin{problem}
-  Да разгледаме структурата $\A = (\mathscr{P}(\Nat), \cap, =)$.  Докажете, че:
+  За езика $\mathcal{L} = \{P\}$ и $\sharp P = 2$, да разгледаме структурата $\A = (\mathcal{P}(\Nat), P^\A)$,
+  където $P^\A(X,Y) \df X \cap Y$. Докажете, че:
   \begin{itemize}
   \item
     $\{\emptyset\}$ и $\{\Nat\}$ са определими;
   \item
     Релациите $\subseteq$ и $=$ са определими;
   \item
-    Операцията $\cup$ е определима;
+    Операцията обединение $\cup$ е определима, т.е. множеството
+    \[\{(A,B,C) \in \mathcal{P}(\Nat) \times \mathcal{P}(\Nat) \times \mathcal{P}(\Nat) \mid A\cup B = C\}\]
+    е определимо.
+  \item
+    Операцията допълнение $\setminus$ е определима, т.е. множеството
+    \[\{(A,B) \in \mathcal{P}(\Nat) \times \mathcal{P}(\Nat) \mid B = \Nat \setminus A\}\]
+    е определимо.
   \item
     $\{A\}$ не е определимо за множества $A$ различни от $\emptyset$ и $\Nat$.
   \end{itemize}
 \end{problem}
 \begin{hint}
-  Да фиксираме два различни елемента $a,b\in\Nat$.
-  Да разгледаме $h:\Nat \to \Nat$ като
-  \[h_{a,b}(x) =
-    \begin{cases}
-      b, & x = a\\
-      a, & x = b\\
-      x, & \text{иначе}.
-    \end{cases}\]
-  Тогава дефинираме $H_{a,b}:\mathscr{P}(\Nat) \to \mathscr{P}(\Nat)$ като
-  $H_{a,b}(A) = \{h_{a,b}(x) \mid x \in A\}$.
-  Защо $H_{a,b}$ е биекция? Защо е автормофизъм?
+  \begin{itemize}
+  \item
+    Защо допълнението е определимо?
+    $B = \Nat \setminus A \iff A \cap B = \emptyset\ \&\ A \cup B = \Nat$.
+  \item
+    Да фиксираме два различни елемента $a,b\in\Nat$.
+    Да разгледаме $h:\Nat \to \Nat$ като
+    \[h_{a,b}(x) =
+      \begin{cases}
+        b, & x = a\\
+        a, & x = b\\
+        x, & \text{иначе}.
+      \end{cases}\]
+    \marginpar{Например, $H_{2,3}(\{1,3,4\}) = \{1,2,4\}$}
+    Тогава дефинираме $H_{a,b}:\mathscr{P}(\Nat) \to \mathscr{P}(\Nat)$ като
+    $H_{a,b}(A) = \{h_{a,b}(x) \mid x \in A\}$.
+    Защо $H_{a,b}$ е биекция? Защо е автормофизъм?    
+  \end{itemize}
 \end{hint}
 
 \begin{problem}
@@ -265,7 +279,6 @@
   $h(r)$ се характеризира със същата редица от рационални числа $(q_n)^{\infty}_{n=0}$.
   Заключаваме, че $h(r) = r$.
 \end{hint}
-
 
 
 %%% Local Variables:
