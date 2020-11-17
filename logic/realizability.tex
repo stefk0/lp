@@ -2,10 +2,53 @@
 
 \begin{itemize}
 \item
-  Релация на еквивалентност
+  Релация на еквивалентност = рефлексивност + транзитивност + антисиметричност.
 \item
   Частична наредба
+\item
+  Линейни наредби
+  \begin{itemize}
+  \item
+    Антирефлексивност (строга линейна наредба):
+    \[(\forall x)[\neg P(x,x)].\]
+  \item
+    Транзитивност:
+    \[(\forall x)(\forall y)(\forall z)[P(x,y) \land P(y,z) \to P(x,z)].\]
+  \item
+    Тоталност (всеки два елемента са сравними):
+    \[(\forall x)(\forall y)[x = y \lor P(x,y) \lor P(y,x)].\]
+  \item
+    Гъстота:
+    \[(\forall x)(\forall y)[P(x,y) \to (\exists z)[P(x,z) \land P(z,y)]].\]
+  \item
+    Наследник:
+    \[(\forall x)(\exists y)[P(x,y) \land (\forall z)[P(x,z) \to (y = z \lor P(y,z)]].\]
+  \item
+    Първи елемент:
+    \[(\exists x)(\forall y)[x = y \lor P(x,y)].\]
+  \end{itemize}
 \end{itemize}
+
+\begin{example}
+  Да разгледаме $\L = \{P\}$, където $\sharp P = 2$.
+  \begin{align*}
+    & \phi_0 \equiv (\forall x) \neg P(x,x)\\
+    & \phi_1 \equiv (\forall x)(\exists y)P(x,y) \\
+    & \phi_2 \equiv (\forall x)(\forall y)(\forall z)[P(x,y) \land P(y,z) \to P(x,z)].
+  \end{align*}
+\end{example}
+\begin{hint}
+  \begin{itemize}
+  \item
+    Не може да има модел само с един елемент.
+  \item
+    Не може да има модел само с два елемента.
+  \item
+    Защо не може да има модел с крайно много елементи ?
+  \item
+    Защо $\A = (\Nat, <)$ е модел?
+  \end{itemize}
+\end{hint}
 
 
 \begin{example}
@@ -42,6 +85,84 @@
   Да видим защо множеството от формули $\Phi = \{\phi_1,\phi_2,\phi_3,\phi_4\}$ е изпълнимо.
 \end{example}
 
+\begin{example}
+  За езика $\mathcal{L} = \{P,=\}$, $\sharp P = 2$, да разгледаме затворените формули:
+  \begin{align*}
+    & \phi_0 \equiv (\exists x)(\forall y)[x \neq y \to (\exists z)[\neg P(y,z)]]\\
+    & \phi_1 \equiv (\exists x)(\forall y)P(x,y)\\
+    & \phi_2 \equiv (\forall x)(\forall y)[P(x,y) \to (\exists z)[P(x,z) \land P(z,y)]]\\
+    & \phi_3 \equiv (\forall x)(\exists y)P(x,y).
+  \end{align*}
+\end{example}
+\begin{hint}
+  \begin{itemize}
+  \item
+    $\A = (\Real^+ \cup \{0\}, \leq, =)$ като в $\phi_0$ за $x$ и $z$ изберем $0$.
+  \item
+    $\A = (\{a\}, P^\A,=)$, където $P = \{(a,a)\}$.
+  \item
+    $\A = (\{a,b\}, P^\A,=)$, където $P = \{(a,a), (a,b)\}$.
+  \end{itemize}
+\end{hint}
+
+
+\begin{example}
+  Да разгледаме $\L = \{P,Q,a,b,c\}$, където $\sharp P = \sharp Q = 2$ и $a,b,c$ са константи.
+  \begin{align*}
+    & \phi_0 \equiv (\exists x)[P(x,x) \land Q(x,x)]\\
+    & \phi_1 \equiv (\forall x)[P(x,x) \to P(a,x)]\\
+    & \phi_2 \equiv (\forall x)(\exists y)[Q(x,y) \land Q(y,b)]\\
+    & \phi_3 \equiv (\exists x)[P(b,x) \land Q(c,x)]\\
+    & \phi_4 \equiv Q(b,b) \land \neg P(c,c) \land \neg Q(c,c).
+  \end{align*}
+\end{example}
+\begin{hint}
+  \begin{itemize}
+  \item
+    Защо не е възможно да има модел само с един елемент?
+  \item
+    Възможно ли е да има модел само с два елемента ? Да.
+    Носител $\{0,1\}$ и $P = \{(0,0)\}$ и $Q = \{(0,0),(1,0)\}$ и $a = b = 0$ и $c = 1$.
+  \end{itemize}
+\end{hint}
+
+\begin{example}
+  \begin{align*}
+    & \phi_0 \equiv (\forall x)(\forall y)(\forall z)[f(f(x,y,a),z,a) = f(x,f(y,z,a),a)]\\
+    & \phi_1 \equiv (\forall x)(\forall y)(\forall z)[f(f(x,y,b),z,b) = f(a,f(y,z,b),b)]\\
+    & \phi_2 \equiv (\forall x)(\forall y)(\forall z)[f(f(x,y,a),z,b) = f(f(x,z,b),f(y,z,b),a)]\\
+    & \phi_3 \equiv a = b\\
+    & \phi_4 \equiv \neg(a = b)\\
+    & \phi_5 \equiv (\forall x)(\forall y)(\exists z)[ f(x,y,z) \neq y].
+  \end{align*}
+  \begin{itemize}
+  \item
+    Множеството $\{\phi_0,\phi_1,\phi_2,\phi_3\}$ има модел само с един елемент.
+    Също така модел е всяка структура $\A$ с непразен носител и фиксираме $a_0 \in A$ и дефинираме $a^\A = b^\A = a_0$ и $f(x,y,z) = y$.
+  \item
+    Да разгледаме сега множеството $\{\phi_0,\phi_1,\phi_2,\phi_4\}$.
+    Тук моделът ще има поне два елемента.
+    Нека $A = \{0,1\}$ и $a^\A = 0$, $b^\A = 1$ и $f^\A(x,y,z) = y$.
+    Може да вземем и $f(x,y,z) = \min\{x,y,z\}$ или $f(x,y,z) = \max\{x,y,z\}$.
+  \item
+    Сега да разгледаме множеството $\{\phi_0,\phi_2,\phi_4, \phi_5\}$.
+    Най-лесно е да разгледаме $f(x,y,z) = \max\{x,y,z\}$ и носител на структурата $\Nat$.
+  \item
+    Сега да разгледаме множеството $\{\phi_0,\phi_1,\phi_2,\phi_4, \phi_5\}$.
+    Да разгледаме $f^\A(x,y,z) = \max{x,y} \cdot z$ и $b^\A = 0$, $a^\A = 1$.
+  \end{itemize}
+\end{example}
+
+
+\begin{example}
+  \begin{align*}
+    & \phi_0 \equiv (\forall x)[f(x) \neq x \land g(x) \neq x]\\
+    & \phi_1 \equiv (\exists x)[f(g(x)) = x \land g(f(x)) = x]\\
+    & \phi_2 \equiv (\exists x)[f(x) = g(x)]\\
+    & \phi_3 \equiv (\exists x)[g(f(x)) \neq f(g(x))]\\
+    & \phi_4 \equiv (\forall y)(\exists x)[g(x) = y].
+  \end{align*}
+\end{example}
 
 
 %%% Local Variables:
